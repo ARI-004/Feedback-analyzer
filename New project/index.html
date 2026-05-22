@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stakeholder Feedback Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ML feedback analysis</p>
+        <h1>Stakeholder Feedback Intelligence</h1>
+      </div>
+      <button id="load-sample" type="button">Load Sample</button>
+    </header>
+
+    <section class="workspace" aria-label="Feedback workspace">
+      <section class="input-panel" aria-labelledby="input-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Comment intake</p>
+            <h2 id="input-title">Feedback comments</h2>
+          </div>
+          <span id="comment-count" class="badge">0 comments</span>
+        </div>
+
+        <label for="feedback-text">Paste comments, one per line</label>
+        <textarea id="feedback-text" rows="11" placeholder="Example: The rollout was useful, but support responses were too slow."></textarea>
+
+        <div class="import-row">
+          <label class="file-control" for="feedback-file">
+            <span>Import CSV/TXT</span>
+            <input id="feedback-file" type="file" accept=".csv,.txt,text/csv,text/plain">
+          </label>
+          <select id="group-field" aria-label="CSV group column">
+            <option value="">No group column</option>
+          </select>
+          <button id="analyze-feedback" type="button">Analyze Feedback</button>
+        </div>
+      </section>
+
+      <section class="metrics-grid" aria-label="Analysis metrics">
+        <article class="metric-card">
+          <span>Total comments</span>
+          <strong id="metric-total">0</strong>
+        </article>
+        <article class="metric-card positive">
+          <span>Positive</span>
+          <strong id="metric-positive">0%</strong>
+        </article>
+        <article class="metric-card neutral">
+          <span>Neutral</span>
+          <strong id="metric-neutral">0%</strong>
+        </article>
+        <article class="metric-card negative">
+          <span>Negative</span>
+          <strong id="metric-negative">0%</strong>
+        </article>
+        <article class="metric-card mixed">
+          <span>Mixed</span>
+          <strong id="metric-mixed">0%</strong>
+        </article>
+      </section>
+
+      <section class="insight-panel" aria-labelledby="summary-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Model readout</p>
+            <h2 id="summary-title">Concise summary</h2>
+          </div>
+          <span id="confidence-note" class="badge">Ready</span>
+        </div>
+        <p id="summary-output" class="summary-text">Add stakeholder feedback and run the analysis to generate a clear summary of opinions, concerns, and recurring themes.</p>
+      </section>
+
+      <section class="split-panel">
+        <article class="insight-panel" aria-labelledby="themes-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Discussion themes</p>
+              <h2 id="themes-title">Key themes</h2>
+            </div>
+          </div>
+          <div id="theme-list" class="theme-list"></div>
+        </article>
+
+        <article class="insight-panel" aria-labelledby="cloud-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Keyword signal</p>
+              <h2 id="cloud-title">Word cloud</h2>
+            </div>
+            <select id="cloud-filter" aria-label="Word cloud filter">
+              <option value="all">All comments</option>
+              <option value="positive">Positive</option>
+              <option value="neutral">Neutral</option>
+              <option value="negative">Negative</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          <canvas id="word-cloud" width="640" height="360" aria-label="Word cloud visualization"></canvas>
+        </article>
+      </section>
+    </section>
+
+    <aside class="side-panel" aria-label="Detailed outputs">
+      <section class="insight-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Sentiment mix</p>
+            <h2>Distribution</h2>
+          </div>
+        </div>
+        <div id="sentiment-bars" class="sentiment-bars"></div>
+      </section>
+
+      <section class="insight-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Review queue</p>
+            <h2>ML classified comments</h2>
+          </div>
+          <button id="export-report" class="secondary" type="button">Export</button>
+        </div>
+        <ol id="comment-list" class="comment-list"></ol>
+      </section>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
